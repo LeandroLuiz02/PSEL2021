@@ -3,6 +3,7 @@
 #include <thread>
 #include <modules/actuator/actuator.h>
 #include <modules/vision/vision.h>
+#include <actions/actions.h>
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
@@ -19,7 +20,14 @@ int main(int argc, char *argv[]) {
 
         // Process vision and actuator commands
         vision->processNetworkDatagrams();
-        actuator->sendCommand(true, 0, 10.0, 10.0);
+        fira_message::Robot robot = vision->getLastRobotDetection(true, 0);
+        fira_message::Ball ball = vision->getLastBallDetection();
+        QVector<float> vels = rotate(true, 0, 0); //rightRotate, radious, speed
+        float leftWheelsVel = vels[0];
+        float rightWheelsVel = vels[1];
+        actuator->sendCommand(true, 0, leftWheelsVel, rightWheelsVel);
+        actuator->sendCommand(true, 0, 1, 2);
+        std::cout << robot.orientation() << std::endl;
 
         // TimePoint
         std::chrono::high_resolution_clock::time_point afterProcess = std::chrono::high_resolution_clock::now();

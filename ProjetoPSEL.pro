@@ -31,6 +31,7 @@ RCC_DIR = tmp/rc
 system(echo "Compiling protobuf files" && cd protobufs/proto && protoc --cpp_out=../ *.proto && cd ../..)
 
 SOURCES += \
+        actions/actions.cpp \
         main.cpp \
         modules/actuator/actuator.cpp \
         modules/module.cpp \
@@ -46,6 +47,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    actions/actions.h \
     modules/actuator/actuator.h \
     modules/module.h \
     modules/vision/vision.h \
