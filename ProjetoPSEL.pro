@@ -32,6 +32,7 @@ system(echo "Compiling protobuf files" && cd protobufs/proto && protoc --cpp_out
 
 SOURCES += \
         actions/actions.cpp \
+        behaviors/behaviors.cpp \
         main.cpp \
         modules/actuator/actuator.cpp \
         modules/module.cpp \
@@ -39,7 +40,8 @@ SOURCES += \
         protobufs/command.pb.cc \
         protobufs/common.pb.cc \
         protobufs/packet.pb.cc \
-        protobufs/replacement.pb.cc
+        protobufs/replacement.pb.cc \
+        roles/roles.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -48,11 +50,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     actions/actions.h \
+    behaviors/behaviors.h \
     modules/actuator/actuator.h \
     modules/module.h \
     modules/vision/vision.h \
     protobufs/command.pb.h \
     protobufs/common.pb.h \
     protobufs/packet.pb.h \
-    protobufs/replacement.pb.h
+    protobufs/replacement.pb.h \
+    roles/roles.h
 
